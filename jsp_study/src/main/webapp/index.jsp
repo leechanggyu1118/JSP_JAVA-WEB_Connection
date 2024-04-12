@@ -10,5 +10,6 @@
 	<h1>Hellow World!!</h1>
 	
 	<h3><a href="/brd/register">글쓰기 페이지로...</a></h3>
+	<h3><a href="/brd/list">리스트 페이지로...</a></h3>
 </body>
 </html>
