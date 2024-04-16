@@ -16,7 +16,7 @@
 	</tr>
 	<tr>
 		<th>Password</th>
-		<td><input type="text" name="password" value="${ses.pwd }"></td>
+		<td><input type="password" name="password" value="${ses.pwd }"></td>
 	</tr>
 	<tr>
 		<th>E-Mail</th>
@@ -33,7 +33,19 @@
 	</table>
 	<button type="submit">modify</button>	
 </form>
+
+<a href="/memb/delete"><button type="button">delete</button></a>
 <a href="/memb/list"><button type="button">list</button></a>
+
+
+<script type="text/javascript">
+const msg_update = `<c:out value="${msg_update}" />`;
+console.log(msg_update);
+if(msg_update==='fail'){
+	alert("회원정보수정이 실패했습니다.");
+}	
+		
+	</script>
 
 </body>
 </html>

@@ -64,6 +64,17 @@ public class MemberDAOImpl implements MemberDAO {
 		return isOk;
 	}
 
+	@Override
+	public int delete(String id) {
+		log.info("delete dao in!!");
+		int isOk = sql.delete("MemberMapper.delete", id);
+		if(isOk>0) {
+			sql.commit();
+		}
+		return isOk;
+
+	}
+
 
 
 

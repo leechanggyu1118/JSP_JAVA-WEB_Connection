@@ -47,6 +47,11 @@ public class MemberServiceImpl implements MemberService {
 			log.info("modify service in!!");
 			return mdao.modify(modify);
 		}
+		@Override
+		public int delete(String id) {
+			log.info("delete service in!!");
+			return mdao.delete(id);
+		}
 
 
 }

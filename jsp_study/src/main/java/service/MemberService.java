@@ -18,6 +18,8 @@ public interface MemberService {
 
 	int update(MemberVO modify);
 
+	int delete(String id);
+
 
 
 

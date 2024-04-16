@@ -147,6 +147,7 @@ public class MemberController extends HttpServlet {
 			break;
 			
 		case "modify":
+			// 페이지 이동만
 			try {
 				
 				destPage = "/member/modify.jsp";
@@ -156,6 +157,7 @@ public class MemberController extends HttpServlet {
 			}
 			break;
 		case "update" :
+			//실제 데이터 수정
 			try {
 				String id = request.getParameter("id");
 				String pwd = request.getParameter("password");
@@ -165,12 +167,37 @@ public class MemberController extends HttpServlet {
 				MemberVO modify = new MemberVO(id, pwd, email, age, phone);
 				isOk = msv.update(modify);	
 				log.info("modify >> {}", (isOk>0)?"OK":"Fail");
+				// 업데이트 후 세션끊기
+				if(isOk>0) {
+					request.setAttribute("msg_update", "ok"); //원하는 값을 넣는다 나는 -2
+					
+					HttpSession ses = request.getSession(); //로그인한 세션 가져와라.
+					ses.invalidate(); //세션 무효화 (세션끊기)
+					destPage = "/index.jsp";
+					
+				}else {
+					request.setAttribute("msg_update", "fail"); //원하는 값을 넣는다 나는 -3
+					destPage = "/member/modify.jsp";
+				}
 				
-				HttpSession ses = request.getSession();
-				//ses.setAttribute("ses",modify );
-				request.setAttribute("msg_login", -2); //원하는 값을 넣는다 나는 -2
-				destPage = "/index.jsp";
-				ses.invalidate(); //세션 무효화 (세션끊기)
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+			
+		case "delete":
+			try {
+				HttpSession ses = request.getSession(); //로그인 된 세션 호출
+				String id = ((MemberVO)ses.getAttribute("ses")).getId();
+				
+				isOk = msv.delete(id);
+				log.info("modify >> {}", (isOk>0)?"OK":"Fail");
+				//삭제는 DB에서 삭제 / 세션은 별도로 삭제 (끊어야함)
+				if(isOk>0) {
+					request.setAttribute("msg_delete", "ok");
+					ses.invalidate();
+				}
+				destPage="/index.jsp";
 				
 			} catch (Exception e) {
 				e.printStackTrace();

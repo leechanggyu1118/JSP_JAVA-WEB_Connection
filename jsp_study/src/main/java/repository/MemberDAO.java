@@ -17,6 +17,8 @@ public interface MemberDAO {
 
 	int modify(MemberVO modify);
 
+	int delete(String id);
+
 
 
 
